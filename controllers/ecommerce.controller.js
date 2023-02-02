@@ -61,3 +61,34 @@ exports.subcategory = async (req, res) => {
         })
     }
 }
+
+exports.productlist = async(req, res) => {
+    try {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            return res.status(200).send({
+                success: false,
+                msg: `${errors.errors[0].msg}`,
+            })
+        }
+
+        let saveproductlistDetails = await ecommerceModel.saveproductlistDetails(req.body)
+        if(saveproductlistDetails) {
+            return res.status(200).send({
+                success: true,
+                msg: 'Product list details saved successfully'
+            })
+        } else {
+            return res.status(404).send({
+                success: false,
+                msg: 'Invalid details'
+            })
+        }
+    } catch (error) {
+        return res.status(200).send({
+            success: false,
+            msg: 'External Error',
+            data: error
+        })
+    }
+}

@@ -21,6 +21,12 @@ class ecommerceModel {
         const[result, fields] = await promisePool.query(sql)
         return result.insertId;
     }
+
+    saveproductlistDetails = async(data) => {
+        let sql = `INSERT INTO product (product_name, product_description, product_expirydate, product_mfg, company_id, sub_category_id) VALUES ('${data.product_name}', '${data.product_description}', '${data.product_expirydate}', '${data.product_mfg}', ${data.company_id}, ${data.sub_category_id})`;
+        const[result, fields] = await promisePool.query(sql);
+        return result.insertId;
+    }
 }
 
 module.exports = new ecommerceModel

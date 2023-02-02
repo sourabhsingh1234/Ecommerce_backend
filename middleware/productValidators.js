@@ -1,6 +1,6 @@
 const { body, check} = require('express-validator');
 
-exports.productScehma = [
+exports.companyScehma = [
     check('sub_category_id')
         .not().isEmpty()
         .withMessage('sub category id is required'),

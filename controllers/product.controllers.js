@@ -1,6 +1,5 @@
 const productModel = require('../models/productModels');
 const { validationResult } = require('express-validator');
-// const { user } = require('../config.js');
 
 exports.company = async(req, res) => {
     try {
@@ -11,10 +10,8 @@ exports.company = async(req, res) => {
                 msg: `${errors.errors[0].msg}`,
             })
         } 
-        // console.log(req.user.id);
+
         let saveProductsDetails = await productModel.saveProductsDetails(req.body);
-        // console.log(saveProductsDetails);
-        // return
         if(saveProductsDetails) {
             return res.status(200).send({
                 success: true,

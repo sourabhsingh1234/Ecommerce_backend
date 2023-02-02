@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../config')
 
 exports.login = async(req, res) => {
-    // console.log("");
     try {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {

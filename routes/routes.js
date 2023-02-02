@@ -21,22 +21,26 @@ const loginController = require('../controllers/login.controller');
 // const todoController = require('../controllers/todo.controller');
 const productController = require('../controllers/product.controllers');
 const ecommerceController = require('../controllers/ecommerce.controller');
+const buyerController = require('../controllers/buyer.controller');
 
 // All Validations call here
 
 const {registorUserSchema, loginSchema, forgetPasswordScehma} = require('../middleware/userValidator')
 // const {todoSchema, todoinfoSchema} = require('../middleware/todovalidator');
 const { verify } = require('jsonwebtoken');
-const {productScehma} = require('../middleware/productValidators');
-const {ecommerceScehma, subcategoryScehma} = require('../middleware/ecommerceValidator');
+const {companyScehma} = require('../middleware/productValidators');
+const {ecommerceScehma, subcategoryScehma, productScehma} = require('../middleware/ecommerceValidator');
 
-//Registor controller
-
+// All post api call here
 router.post('/userRegister', registorUserSchema, registerController.userRegistor.bind());
 router.post('/login', loginSchema, loginController.login.bind());
 router.post('/category', ecommerceScehma, ecommerceController.category.bind());
 router.post('/subcategory', subcategoryScehma, ecommerceController.subcategory.bind());
-router.post('/company',productScehma, productController.company.bind());
+router.post('/company',companyScehma, productController.company.bind());
+router.post('/productlist', productScehma, ecommerceController.productlist.bind())
+router.post('/buyer', ensureWebToken, buyerController.buyer.bind())
+
+// All get api call here
 
 // router.post('/addtodo', ensureWebToken, todoController.addTodo.bind());
 // router.get('/tododetails:info', ensureWebToken, todoController.tododetailsinfo.bind());
