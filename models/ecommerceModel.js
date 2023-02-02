@@ -27,6 +27,12 @@ class ecommerceModel {
         const[result, fields] = await promisePool.query(sql);
         return result.insertId;
     }
+
+    getorderpurchase = async() => {
+        let sql = `SELECT * FROM users INNER JOIN purchase ON users.id = purchase.user_id INNER JOIN product ON product.id = purchase.product_id`;
+        const[result, fields] = await promisePool.query(sql);
+        return result
+    }
 }
 
 module.exports = new ecommerceModel

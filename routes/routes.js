@@ -41,6 +41,7 @@ router.post('/productlist', productScehma, ecommerceController.productlist.bind(
 router.post('/buyer', ensureWebToken, buyerController.buyer.bind())
 
 // All get api call here
+router.get('/orderpurchase', ecommerceController.orderpurchase.bind())
 
 // router.post('/addtodo', ensureWebToken, todoController.addTodo.bind());
 // router.get('/tododetails:info', ensureWebToken, todoController.tododetailsinfo.bind());

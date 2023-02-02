@@ -92,3 +92,21 @@ exports.productlist = async(req, res) => {
         })
     }
 }
+
+exports.orderpurchase = async(req, res) => {
+    try {
+        let getorderpurchase = await ecommerceModel.getorderpurchase()
+        if(getorderpurchase) {
+            return res.status(200).send({
+                success: true,
+                msg: 'Order purchase details successfully',
+                data: getorderpurchase
+            })
+        }
+    } catch (error) {
+        return res.status(200).send({
+            success: false,
+            msg: "External Error"
+        })
+    }
+}
