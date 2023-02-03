@@ -46,6 +46,33 @@ exports.userRegistor = async (req, res) => {
  
 }
 
+exports.updateaddress = async(req, res) => {
+    try {
+        req.body.user_id = req.user.id;
+
+        let updateuseraddress = await userModel.updateuseraddress(req.body)
+        // console.log(updateuseraddress);
+        // return
+        if(updateuseraddress) {
+            return res.status(200).send({
+                success: true,
+                msg: "Address saved successfully"  
+            })
+        } else {
+            return res.status(200).send({
+                success: false,
+                msg: 'Invalid address'
+            })
+        }
+    } catch (error) {
+        // console.log(error);
+        return res.status(200).send({
+            success: false,
+            msg: "External error"
+        })
+    }
+}
+
 
 
 

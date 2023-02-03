@@ -95,6 +95,7 @@ exports.productlist = async(req, res) => {
 
 exports.orderpurchase = async(req, res) => {
     try {
+    
         let getorderpurchase = await ecommerceModel.getorderpurchase()
         if(getorderpurchase) {
             return res.status(200).send({
