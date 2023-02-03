@@ -29,7 +29,7 @@ class ecommerceModel {
     }
 
     getorderpurchase = async() => {
-        let sql = `SELECT * FROM users INNER JOIN purchase ON users.id = purchase.user_id INNER JOIN product ON product.id = purchase.product_id`;
+        let sql = `SELECT users.email, pu.user_id, pu.product_id, pu.quantity, pr.product_name, pr.product_description, pr.product_expirydate, pr.product_mfg, co.company_name, co.company_description FROM users INNER JOIN purchase AS pu ON users.id = pu.user_id INNER JOIN product AS pr ON pr.id = pu.product_id INNER JOIN company AS co on co.id = pr.company_id`;
         const[result, fields] = await promisePool.query(sql);
         return result
     }
