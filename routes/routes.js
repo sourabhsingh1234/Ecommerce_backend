@@ -18,7 +18,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 const registerController = require('../controllers/register.controller');
 const loginController = require('../controllers/login.controller');
-// const todoController = require('../controllers/todo.controller');
 const productController = require('../controllers/product.controllers');
 const ecommerceController = require('../controllers/ecommerce.controller');
 const buyerController = require('../controllers/buyer.controller');
@@ -26,7 +25,6 @@ const buyerController = require('../controllers/buyer.controller');
 // All Validations call here
 
 const {registorUserSchema, loginSchema, forgetPasswordScehma} = require('../middleware/userValidator')
-// const {todoSchema, todoinfoSchema} = require('../middleware/todovalidator');
 const { verify } = require('jsonwebtoken');
 const {companyScehma} = require('../middleware/productValidators');
 const {ecommerceScehma, subcategoryScehma, productScehma} = require('../middleware/ecommerceValidator');
@@ -45,12 +43,6 @@ router.patch('/updateaddress', ensureWebToken, registerController.updateaddress.
 
 // All get api call here
 router.get('/orderpurchase', ecommerceController.orderpurchase.bind())
-
-// router.post('/addtodo', ensureWebToken, todoController.addTodo.bind());
-// router.get('/tododetails:info', ensureWebToken, todoController.tododetailsinfo.bind());
-// router.post('/updatetodo', ensureWebToken, todoController.updatetodo.bind());
-
-
 
 function ensureWebToken(req, res, next) {
     const x_access_token = req.headers['authorization'];
