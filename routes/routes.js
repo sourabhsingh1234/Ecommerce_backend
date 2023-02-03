@@ -73,6 +73,4 @@ async function verifyJWT(req, res, next) {
 
 }
 
-
-
 module.exports.routes = router;
