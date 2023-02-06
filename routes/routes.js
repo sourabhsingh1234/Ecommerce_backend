@@ -21,6 +21,7 @@ const loginController = require('../controllers/login.controller');
 const productController = require('../controllers/product.controllers');
 const ecommerceController = require('../controllers/ecommerce.controller');
 const buyerController = require('../controllers/buyer.controller');
+const studentController = require('../controllers/studentregistor.controller')
 
 // All Validations call here
 
@@ -28,6 +29,7 @@ const {registorUserSchema, loginSchema, forgetPasswordScehma} = require('../midd
 const { verify } = require('jsonwebtoken');
 const {companyScehma} = require('../middleware/productValidators');
 const {ecommerceScehma, subcategoryScehma, productScehma} = require('../middleware/ecommerceValidator');
+const {studentScehma} = require('../middleware/studentvalidation')
 
 // All post api call here
 router.post('/userRegister', registorUserSchema, registerController.userRegistor.bind());
@@ -37,6 +39,7 @@ router.post('/subcategory', subcategoryScehma, ecommerceController.subcategory.b
 router.post('/company',companyScehma, productController.company.bind());
 router.post('/productlist', productScehma, ecommerceController.productlist.bind())
 router.post('/buyer', ensureWebToken, buyerController.buyer.bind())
+router.post('/studentsaveddetails', studentScehma, studentController.student.bind())
 
 // All patch api call here
 router.patch('/updateaddress', ensureWebToken, registerController.updateaddress.bind())

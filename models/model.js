@@ -18,7 +18,7 @@ class userModel {
     }
     
     saveUserDetails = async (data) => {
-        let sql = `INSERT INTO users (first_name, last_name, email, password) VALUES ('${data.first_name}', '${data.last_name}', '${data.email}', '${data.password}')`;
+        let sql = `INSERT INTO users (first_name, last_name, email, password, address_1, address_2) VALUES ('${data.first_name}', '${data.last_name}', '${data.email}', '${data.password}', '${data.address_1}', '${data.address_2}')`;
         // console.log(sql, "sql1111");
         const [result, fields] = await promisePool.query(sql)
         return result.insertId;

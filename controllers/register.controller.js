@@ -1,5 +1,7 @@
 const userModel = require('../models/model.js');
 const { validationResult } = require('express-validator');
+// const speakeasy = require("speakeasy")
+const CryptoJS = require("crypto-js");
 
 exports.userRegistor = async (req, res) => {
     try {
@@ -22,9 +24,23 @@ exports.userRegistor = async (req, res) => {
             })
         }
 
+        // Create hash password for user
+        // let secret = speakeasy.generateSecret({ length: 20});
+        const hash = CryptoJS.SHA256(req.body.password).toString(CryptoJS.enc.Hex);
+        // console.log(req.body.password);
+        let users = {
+            "first_name": req.body.first_name,
+            "last_name": req.body.last_name,
+            "email": req.body.email,
+            "password": hash,
+            "address_1": req.body.address_1,
+            "address_2": req.body.address_2
+        }
+
+        console.log(users);
         // Here is this we save the details of all the users that have registered
 
-        let saveUserDetails = await userModel.saveUserDetails(req.body)
+        let saveUserDetails = await userModel.saveUserDetails(users)
         if(saveUserDetails) {
             return res.status(200).send({
                 success: true,
@@ -38,6 +54,7 @@ exports.userRegistor = async (req, res) => {
         }
 
     } catch (err) {
+        // console.log(err);
         return res.status(200).send({
             success: false,
             msg: 'User not registered due to internal error',
