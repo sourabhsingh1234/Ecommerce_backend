@@ -40,12 +40,14 @@ router.post('/company',companyScehma, productController.company.bind());
 router.post('/productlist', productScehma, ecommerceController.productlist.bind())
 router.post('/buyer', ensureWebToken, buyerController.buyer.bind())
 router.post('/studentsaveddetails', studentScehma, studentController.student.bind())
+router.post('/fees', studentController.feesdata.bind())
 
 // All patch api call here
 router.patch('/updateaddress', ensureWebToken, registerController.updateaddress.bind())
 
 // All get api call here
 router.get('/orderpurchase', ecommerceController.orderpurchase.bind())
+router.get('/studentfeesdetails', studentController.studentfeesdetails.bind())
 
 function ensureWebToken(req, res, next) {
     const x_access_token = req.headers['authorization'];
