@@ -21,7 +21,9 @@ const loginController = require('../controllers/login.controller');
 const productController = require('../controllers/product.controllers');
 const ecommerceController = require('../controllers/ecommerce.controller');
 const buyerController = require('../controllers/buyer.controller');
-const studentController = require('../controllers/studentregistor.controller')
+const studentController = require('../controllers/studentregistor.controller');
+const bankController = require('../controllers/bankregistor.controller');
+const customeraccountController = require('../controllers/customeraccount.controller')
 
 // All Validations call here
 
@@ -29,7 +31,9 @@ const {registorUserSchema, loginSchema, forgetPasswordScehma} = require('../midd
 const { verify } = require('jsonwebtoken');
 const {companyScehma} = require('../middleware/productValidators');
 const {ecommerceScehma, subcategoryScehma, productScehma} = require('../middleware/ecommerceValidator');
-const {studentScehma} = require('../middleware/studentvalidation')
+const {studentScehma} = require('../middleware/studentvalidation');
+const {bankScehma, customerScehma} = require('../middleware/bankvalidation')
+// const {customeraccountScehma} = require('../middleware/customeraccountvalidation')
 
 // All post api call here
 router.post('/userRegister', registorUserSchema, registerController.userRegistor.bind());
@@ -42,12 +46,27 @@ router.post('/buyer', ensureWebToken, buyerController.buyer.bind())
 router.post('/studentsaveddetails', studentScehma, studentController.student.bind())
 router.post('/fees', studentController.feesdata.bind())
 
+
 // All patch api call here
 router.patch('/updateaddress', ensureWebToken, registerController.updateaddress.bind())
 
 // All get api call here
 router.get('/orderpurchase', ecommerceController.orderpurchase.bind())
 router.get('/studentfeesdetails', studentController.studentfeesdetails.bind())
+
+
+
+
+// Banking api structure
+router.post('/bank_registor', bankScehma, bankController.bankregistor.bind())
+router.post('/customer_login', customerScehma, bankController.customerlogin.bind())
+router.post('/customeraccount_details', ensureWebToken, customeraccountController.customeraccountdetails.bind())
+router.post('/transactioninfo', ensureWebToken, customeraccountController.transactioninfo.bind())
+
+// GET
+router.get('/customerdetails', customeraccountController.customerdetails.bind())
+
+
 
 function ensureWebToken(req, res, next) {
     const x_access_token = req.headers['authorization'];
@@ -69,9 +88,9 @@ async function verifyJWT(req, res, next) {
                 complete: true,
                 json: true
             });
-            req.user = _data['payload'];
-            req.user_id = req.user.id;
-            req.email = req.user.email;
+            req.clients = _data['payload'];
+            req.customer_id = req.clients.id;
+            // req.email = req.user.email;
             next();
         }
     })

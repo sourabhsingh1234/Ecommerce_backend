@@ -37,7 +37,7 @@ exports.userRegistor = async (req, res) => {
             "address_2": req.body.address_2
         }
 
-        console.log(users);
+        // console.log(users);
         // Here is this we save the details of all the users that have registered
 
         let saveUserDetails = await userModel.saveUserDetails(users)
